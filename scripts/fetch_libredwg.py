@@ -19,7 +19,7 @@ import zipfile
 from pathlib import Path
 
 REPO = "LibreDWG/libredwg"
-DEFAULT_TAG = "0.13.3"
+DEFAULT_TAG = "0.14.8654"  # verified in CI (DWG round trip + frozen self-test)
 ROOT = Path(__file__).resolve().parents[1]
 DEST = ROOT / "vendor" / "libredwg"
 
