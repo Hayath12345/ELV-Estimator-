@@ -282,9 +282,11 @@ def extract_dxf(path: str, progress: Progress | None = None) -> dict:
                 if len(vs) >= 2:
                     flat_list = [round(c, 3) for v in vs for c in v]
                     linework.append(flat_list)
-                    if len(all_pts) < 200000:
-                        all_pts.append(vs[0])
-                        all_pts.append(vs[-1])
+                    if len(all_pts) < 400000:
+                        xs = [v[0] for v in vs]
+                        ys = [v[1] for v in vs]
+                        all_pts.append((min(xs), min(ys)))
+                        all_pts.append((max(xs), max(ys)))
 
     progress(0.62, "Resolving units and scale")
     # ---- units -------------------------------------------------------------

@@ -2,7 +2,7 @@
 
 Layers follow common AIA naming: A-WALL, A-AREA (room boundaries), A-AREA-IDEN (names),
 A-DOOR (door blocks), A-DOOR-IDEN (door tags), I-FURN (desks/chairs/tables), S-GRID.
-Used by the tests and by `python -m tests.fixtures.sample_plans OUTDIR` for demos.
+Used by the tests, the app self-test and "Open sample project" (`python -m elv_engine.samples OUTDIR`).
 """
 from __future__ import annotations
 

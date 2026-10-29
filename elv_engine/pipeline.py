@@ -33,6 +33,7 @@ class Result:
     selected: list[str]
     fx: dict
     commercial: dict
+    auto: list[dict]  # rule-based placement before user edits
 
 
 def _ceil10(x: float) -> int:
@@ -108,7 +109,7 @@ def compute(project: dict, library: dict, fx: dict) -> Result:
                         bq.get("extra_lines", []), commercial, fx, selected, combined)
     ck = checks_mod.run({"boq": boq, "selected": selected, "qinfo": qres["info"], "devices": devices,
                          "routes": routes, "floors": floors, "sizing": sizing, "fx": fx, "commercial": commercial})
-    return Result(floors, devices, routes, backbone, qres, sizing, sizing_by, boq, ck, selected, fx, commercial)
+    return Result(floors, devices, routes, backbone, qres, sizing, sizing_by, boq, ck, selected, fx, commercial, auto)
 
 
 def effective_fx(lib_fx: dict, overrides: dict | None) -> dict:

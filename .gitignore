@@ -17,3 +17,4 @@ tests/_out/
 *.log
 .DS_Store
 Thumbs.db
+ui/tsconfig.tsbuildinfo
