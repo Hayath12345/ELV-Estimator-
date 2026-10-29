@@ -1,0 +1,106 @@
+/* Design tokens — Enterprise Ledger (design direction 1a). Values are taken 1:1 from the design file. */
+:root {
+  /* brand */
+  --navy: #1F3B70;
+  --navy-hover: #172C55;
+  --navy-ink: #14254A;
+  --navy-2: #0F234A;
+
+  /* sidebar */
+  --side-bg: #1F3B70;
+  --side-fg: #C3CEE3;
+  --side-fg-active: #FFFFFF;
+  --side-muted: #8EA2C6;
+  --side-muted-2: #A9B9D6;
+  --side-bar: #9DBBF2;
+  --side-active-bg: rgba(255, 255, 255, .12);
+  --side-card-bg: rgba(255, 255, 255, .06);
+  --side-line: rgba(255, 255, 255, .1);
+  --avatar-bg: #D9E1F2;
+
+  /* surfaces */
+  --page: #F3F5F9;
+  --page-outer: #E9EDF3;
+  --surface: #FFFFFF;
+  --border: #D5DBE6;
+  --border-2: #E6EAF0;
+  --border-3: #EEF1F5;
+  --border-sec: #E1E6EE;
+  --input-border: #C4CDDC;
+  --input-bg: #FBFCFE;
+  --search-bg: #F8FAFC;
+  --dash: #9FB0CC;
+  --drop-bg: #F8FAFD;
+  --th-bg: #D9E1F2;
+  --sec-bg: #F4F6FA;
+  --sec-shared-bg: #EEF2F9;
+  --row-sel: #F1F5FC;
+  --row-hover: #F4F7FC;
+  --row-soft: #FAFBFE;
+  --skeleton: #F1F4F8;
+
+  /* text */
+  --text: #1B2333;
+  --text-2: #3D475A;
+  --muted: #5E6A7D;
+  --muted-2: #8A94A6;
+
+  /* states */
+  --ok: #1E7D46;
+  --ok-ink: #1E6B3E;
+  --ok-bg: #E3F1E8;
+  --ok-border: #9CC9AE;
+  --err: #C62828;
+  --err-ink: #8C1D18;
+  --err-2: #B42318;
+  --err-bg: #FDECEC;
+  --err-border: #F3B5B0;
+  --err-border-2: #E5A29C;
+  --err-line: #D32F2F;
+  --warn: #D99A00;
+  --warn-ink: #6B4600;
+  --warn-bg: #FFF4D6;
+  --warn-border: #F0D48A;
+  --warn-row: #FFFAEB;
+  --bud: #E8A300;
+  --bud-ink: #7A4F00;
+  --bud-bg: #FFEDC2;
+  --bud-row: #FFF7E0;
+  --amber-ink: #8A5A00;
+  --med-ink: #1F4E8C;
+  --med-bg: #E2EBF7;
+  --med-bar: #2A6CC0;
+  --lab-ink: #4A4373;
+  --lab-bg: #ECEAF4;
+  --lab-bar: #7B71B3;
+  --oth-ink: #4E5666;
+  --oth-bg: #EDEFF2;
+  --oth-bar: #A3ABB8;
+  --review-bg: #FFF1D1;
+
+  /* systems */
+  --sys-cctv: #E07A1F;
+  --sys-access: #2F9E6B;
+  --sys-iptv: #8A5CD6;
+  --sys-cabling: #2A86C9;
+  --sys-intercom: #B8901A;
+  --sys-intrusion: #D0457A;
+
+  /* plan */
+  --plan-bg: #FFFFFF;
+  --plan-room: #F5F7FA;
+  --plan-open: #FBFCFD;
+  --plan-stroke: #B9C2D0;
+  --plan-wall: #2B3345;
+  --plan-text: #7A8396;
+  --plan-grid: #D6DDE8;
+  --plan-grid-text: #5E6A7D;
+  --plan-core: #E8ECF2;
+
+  /* type & shape */
+  --font: 'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --mono: 'IBM Plex Mono', ui-monospace, Consolas, monospace;
+  --r: 4px;
+  --r-sm: 3px;
+  --r-pill: 10px;
+}
