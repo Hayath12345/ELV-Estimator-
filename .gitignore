@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.venv/
+venv/
+build/
+dist/
+# UI
+ui/node_modules/
+ui/dist/
+# Vendor binaries are fetched by scripts/fetch_libredwg.py
+vendor/libredwg/bin/
+# Local test output
+tests/_out/
+*.log
+.DS_Store
+Thumbs.db

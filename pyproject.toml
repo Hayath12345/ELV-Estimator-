@@ -1,0 +1,15 @@
+[project]
+name = "elv-estimator"
+version = "0.1.0"
+description = "ELV Estimator: AutoCAD floor plans (DWG/DXF/PDF) to ready-to-send ELV quotations"
+requires-python = ">=3.12"
+dependencies = [
+  "ezdxf==1.4.5",
+  "pymupdf==1.28.2",
+  "openpyxl==3.1.5",
+  "reportlab==5.1.0",
+  "pywebview==6.2.1",
+]
+
+[tool.setuptools.packages.find]
+include = ["elv_engine*", "app*"]

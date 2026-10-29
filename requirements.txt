@@ -1,0 +1,6 @@
+# Runtime dependencies (pinned). All are permissively licensed except PyMuPDF (AGPL-3.0, see README "Licences").
+ezdxf==1.4.5
+pymupdf==1.28.2
+openpyxl==3.1.5
+reportlab==5.1.0
+pywebview==6.2.1
