@@ -1,0 +1,43 @@
+{
+ "devices": {
+  "access": 13,
+  "cabling": 230,
+  "cctv": 60,
+  "intercom": 8,
+  "intrusion": 135,
+  "iptv": 20
+ },
+ "shared": "701244.93",
+ "standalone": "4792854.89",
+ "combined": "2244339.29",
+ "saving": "2548515.60",
+ "network": "133085.63",
+ "optional": "0",
+ "systems": {
+  "cctv": {
+   "standalone": "1158596.98",
+   "combined": "580418.09"
+  },
+  "access": {
+   "standalone": "654433.48",
+   "combined": "111553.67"
+  },
+  "iptv": {
+   "standalone": "636867.77",
+   "combined": "93293.56"
+  },
+  "cabling": {
+   "standalone": "998087.49",
+   "combined": "430760.10"
+  },
+  "intercom": {
+   "standalone": "567187.33",
+   "combined": "34350.08"
+  },
+  "intrusion": {
+   "standalone": "777681.84",
+   "combined": "292718.86"
+  }
+ },
+ "checks": "54/54"
+}
