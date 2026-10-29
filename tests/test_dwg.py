@@ -26,10 +26,17 @@ def test_dwg_round_trip(tmp_path):
     if not tool:
         pytest.skip("dxf2dwg not available to create a test DWG")
     dwg = tmp_path / "plan 2F.dwg"
-    p = subprocess.run([tool, "-y", "-o", str(dwg), str(r2000)], capture_output=True, text=True, timeout=180)
+    p = subprocess.run([tool, "-y", "-o", str(dwg), str(r2000)], capture_output=True, text=True, errors="replace", timeout=180)
     if not dwg.exists() or dwg.stat().st_size < 1000:
         pytest.skip(f"dxf2dwg could not write a DWG: {p.stderr[-300:]}")
-    res = extract_drawing(str(dwg), str(tmp_path / "cache"), "dw1")
+    try:
+        res = extract_drawing(str(dwg), str(tmp_path / "cache"), "dw1")
+    except Exception:
+        conv = tmp_path / "cache" / "dw1.dxf"
+        head = conv.read_bytes()[:600] if conv.exists() else b"(no DXF written)"
+        print("dxf2dwg:", p.stdout[-300:], p.stderr[-300:])
+        print("converted DXF head:", head)
+        raise
     names = {r["name"] for r in res["rooms"]}
     assert res["kind"] == "dwg"
     assert len(res["rooms"]) >= 35, (len(res["rooms"]), sorted(names)[:10])

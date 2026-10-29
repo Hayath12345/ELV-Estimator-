@@ -144,9 +144,10 @@ def extract_dxf(path: str, progress: Progress | None = None) -> dict:
     progress(0.05, "Reading DXF")
     try:
         doc = ezdxf.readfile(path)
-    except ezdxf.DXFStructureError:
+    except (ezdxf.DXFStructureError, IOError, UnicodeDecodeError):
+        # tolerant reader: handles converter output with odd headers/comments or structure errors
         doc, auditor = recover.readfile(path)
-        res["warnings"].append("Drawing had structural errors and was recovered.")
+        res["warnings"].append("Drawing had structural irregularities and was recovered.")
     msp = doc.modelspace()
 
     insunits = int(doc.header.get("$INSUNITS", 0) or 0)

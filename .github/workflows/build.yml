@@ -48,7 +48,7 @@ jobs:
         run: python scripts/fetch_libredwg.py
 
       - name: Tests
-        run: python -m pytest -q
+        run: python -m pytest -q -rs
 
       - name: PyInstaller (one-folder)
         run: pyinstaller packaging/elv_estimator.spec --noconfirm --clean
