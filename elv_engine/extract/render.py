@@ -22,7 +22,7 @@ def load_linework(path: str) -> list[list[float]]:
 
 def draw_linework(page, linework, extents, rect, color=(0.36, 0.41, 0.49), width=0.35):
     """Draw linework (drawing units, y up) into a PyMuPDF page rectangle, keeping aspect."""
-    import fitz
+    import pymupdf as fitz
     x0, y0, x1, y1 = extents
     sx = rect.width / max(x1 - x0, 1e-9)
     sy = rect.height / max(y1 - y0, 1e-9)
@@ -50,7 +50,7 @@ def draw_linework(page, linework, extents, rect, color=(0.36, 0.41, 0.49), width
 
 
 def render_png(linework, extents, out_png: str, max_px: int = 4096) -> dict:
-    import fitz
+    import pymupdf as fitz
     x0, y0, x1, y1 = extents
     w, h = max(x1 - x0, 1e-9), max(y1 - y0, 1e-9)
     if w >= h:

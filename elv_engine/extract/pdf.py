@@ -19,13 +19,13 @@ PT_M = 0.0254 / 72.0  # metres per PDF point on paper
 
 
 def page_count(path: str) -> int:
-    import fitz
+    import pymupdf as fitz
     with fitz.open(path) as doc:
         return doc.page_count
 
 
 def extract_pdf(path: str, page_no: int = 0, progress: Callable[[float, str], None] | None = None) -> dict:
-    import fitz
+    import pymupdf as fitz
 
     progress = progress or (lambda f, m: None)
     res = empty_result("pdf")
@@ -138,7 +138,7 @@ def _merge_lines(texts):
 
 
 def render_page_png(path: str, page_no: int, out_png: str, max_px: int = 4096) -> dict:
-    import fitz
+    import pymupdf as fitz
     with fitz.open(path) as doc:
         page = doc[page_no]
         zoom = max_px / max(page.rect.width, page.rect.height)
