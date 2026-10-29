@@ -1,0 +1,89 @@
+name: Build Windows installer
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: windows-latest
+    timeout-minutes: 60
+    env:
+      PYTHONUTF8: "1"
+      ELV_NO_OPEN: "1"
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: ui/package-lock.json
+
+      - name: Build UI
+        working-directory: ui
+        run: |
+          npm ci
+          npm run build
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements-dev.txt
+
+      - name: Install Python dependencies
+        run: python -m pip install -r requirements-dev.txt
+
+      - name: Fetch LibreDWG (Windows release)
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python scripts/fetch_libredwg.py
+
+      - name: Tests
+        run: python -m pytest -q
+
+      - name: PyInstaller (one-folder)
+        run: pyinstaller packaging/elv_estimator.spec --noconfirm --clean
+
+      - name: Self-test the frozen app
+        shell: pwsh
+        run: |
+          $out = Join-Path $env:RUNNER_TEMP "selftest"
+          $p = Start-Process -FilePath "dist\ELV-Estimator\ELV-Estimator.exe" -ArgumentList "--selftest","--selftest-out","`"$out`"" -Wait -PassThru
+          if (Test-Path "$out\selftest.log") { Get-Content "$out\selftest.log" }
+          if ($p.ExitCode -ne 0) { throw "Self-test failed with exit code $($p.ExitCode)" }
+          New-Item -ItemType Directory -Force -Path selftest-outputs | Out-Null
+          Get-ChildItem -Path "$out\projects" -Recurse -Include *.pdf,*.xlsx | Copy-Item -Destination selftest-outputs
+
+      - name: Inno Setup installer
+        shell: pwsh
+        run: |
+          $iscc = "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe"
+          if (-not (Test-Path $iscc)) { choco install innosetup -y --no-progress; }
+          $version = (Select-String -Path pyproject.toml -Pattern '^version = "(.+)"').Matches[0].Groups[1].Value
+          & $iscc "/DAppVersion=$version" packaging\installer.iss
+          if ($LASTEXITCODE -ne 0) { throw "ISCC failed" }
+          Get-Item dist\ELV-Estimator-Setup.exe | Format-List Name,Length
+
+      - name: Upload installer
+        uses: actions/upload-artifact@v4
+        with:
+          name: ELV-Estimator-Setup
+          path: dist/ELV-Estimator-Setup.exe
+          if-no-files-found: error
+
+      - name: Upload self-test outputs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: selftest-outputs
+          path: selftest-outputs
+          if-no-files-found: ignore

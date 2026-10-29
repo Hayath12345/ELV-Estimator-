@@ -50,7 +50,11 @@ def extract_drawing(path: str, cache_dir: str, drawing_id: str, page: int = 0,
         progress(0.02, "Converting DWG with LibreDWG")
         dxf_path = os.path.join(cache_dir, f"{drawing_id}.dxf")
         dwg_to_dxf(path, dxf_path)
-        res = dxf_mod.extract_dxf(dxf_path, lambda f, m: progress(0.1 + f * 0.75, m))
+        try:
+            res = dxf_mod.extract_dxf(dxf_path, lambda f, m: progress(0.1 + f * 0.75, m))
+        except Exception as exc:  # converter produced an unusable DXF
+            raise DwgError("The file could not be read — LibreDWG converted it but the result is not a valid "
+                           f"drawing. Re-save as AutoCAD 2018 DWG, or upload the DXF/PDF set instead. ({exc})") from exc
         res["kind"] = "dwg"
     elif kind == "dxf":
         res = dxf_mod.extract_dxf(path, lambda f, m: progress(f * 0.85, m))
